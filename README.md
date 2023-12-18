@@ -2,7 +2,7 @@
 
 ### Description
 
-The Contact Lenses Assistant App is a comprehensive tool that helps you manage your contact lens care routine. It provides a counter for when you insert your lenses, a lenses' usage history and reminders for when it is to replace them. It also includes a built-in card to track your lens parameters and type.
+The Contact Lenses Assistant App is a comprehensive tool that helps you manage your contact lenses care routine. It provides a counter for when you insert your lenses, a lenses' usage history and reminders for when it is time to replace them. It also includes a built-in card to track your lenses' parameters and type.
 
 | ![app_home_light](https://github.com/Thanasis-pap/contact_lenses/assets/23704220/945ba4cc-b209-4595-8c0d-45059e7f89b4) | ![app_param_light](https://github.com/Thanasis-pap/contact_lenses/assets/23704220/a27216d8-3431-48d8-b1b1-5b0bd5487985) | ![app_param_dark](https://github.com/Thanasis-pap/contact_lenses/assets/23704220/867a2710-3a6d-4355-a8fc-31adb93cfc95) | ![app_home_dark](https://github.com/Thanasis-pap/contact_lenses/assets/23704220/1504bb80-25b9-4d3a-b09f-824db0dd5fd9) |
 | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
@@ -21,7 +21,7 @@ The Contact Lenses Assistant App is a comprehensive tool that helps you manage y
 
 1. Download and install the Contact Lenses Assistant app.
 
-2. Enter your contact lens information.
+2. Enter your contact lenses information.
 
 3. Count the times you used your contact lenses with a simple tap.
 
@@ -31,9 +31,9 @@ The Contact Lenses Assistant App is a comprehensive tool that helps you manage y
 
 2. Receive notifications when it's time to replace your lenses.
 
-3. View your lens usage history.
+3. View your lenses' usage history.
 
-4. View your lenses parameters
+4. View your lenses' parameters
 
 ### Disclaimer
 
