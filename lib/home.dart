@@ -20,6 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
       Global.fontSize = (prefs.getDouble('fontsize') ?? 18);
       Global.leftEye = (prefs.getInt('lefteye') ?? 0);
       Global.rightEye = (prefs.getInt('righteye') ?? 0);
+      Global.tips = (prefs.getBool('tips') ?? true);
       Global.myopia = (prefs.getBool('myopia') ?? true);
       Global.astigmatism = (prefs.getBool('astigmatism') ?? false);
       Global.presbyopia = (prefs.getBool('presbyopia') ?? false);
@@ -80,6 +81,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void setTip(bool tips) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setBool('tips', tips);
+    });
+  }
+
   int currentPageIndex = 0;
   NavigationDestinationLabelBehavior labelBehavior =
       NavigationDestinationLabelBehavior.alwaysShow;
@@ -126,163 +134,214 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: <Widget>[
-        Center(
-          child: ListView(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 44),
-                child: Timestamps.timestamp(context),
-              ),
-              //Timestamps
-              //Lenses counter
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 30.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Counter.lensesCount(
-                              context, 'Left Lens', Global.leftEye.toString()),
-                          const SizedBox(height: 10.0),
-                          ElevatedButton(
-                            onPressed: () {
-                              Lifespan.alert(context);
-                              Global.leftEye += 1;
-                              setInt(Global.leftEye, Global.rightEye);
-                            },
-                            child: const Icon(Icons.add),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(width: 16.0),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Counter.lensesCount(context, 'Right Lens',
-                              Global.rightEye.toString()),
-                          const SizedBox(height: 10.0),
-                          ElevatedButton(
-                            onPressed: () {
-                              Lifespan.alert(context);
-                              Global.rightEye += 1;
-                              setInt(Global.leftEye, Global.rightEye);
-                            },
-                            child: const Icon(Icons.add),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 50.0),
-                  SizedBox(
-                    height: 75,
-                    width: 200,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        Lifespan.alert(context);
-                        Global.leftEye++;
-                        Global.rightEye++;
-                        setInt(Global.leftEye, Global.rightEye);
-                        String date =
-                            DateTime.now().toString().substring(0, 19);
-                        Global.timestamps.add(date);
-                        setStringList(Global.timestamps);
-                      },
-                      icon: const Icon(Icons.remove_red_eye_sharp),
-                      label: Text('Lenses on',
-                          style: TextStyle(fontSize: Global.fontSize + 4)),
+        ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 44),
+              child: Timestamps.timestamp(context),
+            ),
+            //Timestamps
+            //Lenses counter
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 30.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Counter.lensesCount(
+                            context, 'Left Lens', Global.leftEye.toString()),
+                        const SizedBox(height: 10.0),
+                        ElevatedButton(
+                          onPressed: () {
+                            Lifespan.alert(context);
+                            Global.leftEye += 1;
+                            setInt(Global.leftEye, Global.rightEye);
+                          },
+                          child: const Icon(Icons.add),
+                        ),
+                      ],
                     ),
+                    const SizedBox(width: 16.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Counter.lensesCount(
+                            context, 'Right Lens', Global.rightEye.toString()),
+                        const SizedBox(height: 10.0),
+                        ElevatedButton(
+                          onPressed: () {
+                            Lifespan.alert(context);
+                            Global.rightEye += 1;
+                            setInt(Global.leftEye, Global.rightEye);
+                          },
+                          child: const Icon(Icons.add),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 50.0),
+                SizedBox(
+                  height: 75,
+                  width: 200,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: Text('Tip:',
+                              style: TextStyle(fontSize: Global.fontSize + 10)),
+                          content: Text(Tips.selectTip(),
+                              style: TextStyle(fontSize: Global.fontSize)),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context, 'OK');
+                              },
+                              child: Text('OK',
+                                  style: TextStyle(fontSize: Global.fontSize)),
+                            ),
+                          ],
+                        ),
+                      );
+                      Lifespan.alert(context);
+                      Global.leftEye++;
+                      Global.rightEye++;
+                      setInt(Global.leftEye, Global.rightEye);
+                      String date = DateTime.now().toString().substring(0, 19);
+                      Global.timestamps.add(date);
+                      setStringList(Global.timestamps);
+                    },
+                    icon: const Icon(Icons.remove_red_eye_sharp),
+                    label: Text('Lenses on',
+                        style: TextStyle(fontSize: Global.fontSize + 4)),
                   ),
-                  const SizedBox(height: 75.0),
-                ],
-              ),
-            ],
-          ),
+                ),
+                const SizedBox(height: 75.0),
+              ],
+            ),
+          ],
         ),
-        Center(
-          child: ListView(
-            padding: const EdgeInsets.all(15),
-            children: <Widget>[
-              SizedBox(
+        ListView(
+          padding: const EdgeInsets.all(15),
+          children: <Widget>[
+            SizedBox(
+              width: 120.0,
+              height: 430 + (Global.fontSize * 9),
+              child: Card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Heading.title(context, 'Lenses Info'),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        'Lenses Brand',
+                        style: TextStyle(fontSize: Global.fontSize),
+                      ),
+                    ),
+                    Container(
+                      width: 280,
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.all(5.0),
+                      padding: const EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).highlightColor,
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      child: Text(
+                        Global.lensesInfo[0],
+                        style: TextStyle(fontSize: Global.fontSize),
+                      ),
+                    ),
+                    const SizedBox(height: 10.0),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        'Lenses Lifespan',
+                        style: TextStyle(fontSize: Global.fontSize),
+                      ),
+                    ),
+                    Container(
+                      width: 280,
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.all(5.0),
+                      padding: const EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).highlightColor,
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      child: Text(
+                        Global.lensesInfo[1],
+                        style: TextStyle(fontSize: Global.fontSize),
+                      ),
+                    ),
+                    const SizedBox(height: 20.0),
+                    EyeCondition.infoCard(context),
+                    const Spacer(),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: FloatingActionButton.small(
+                          onPressed: () {
+                            Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => const GeneralInfo()))
+                                .then((_) {
+                              setState(() {});
+                            });
+                          },
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          backgroundColor: Theme.of(context).highlightColor,
+                          elevation: 0,
+                          child: const Icon(Icons.edit),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Visibility(
+              visible: Global.myopia,
+              child: const SizedBox(height: 15.0),
+            ),
+            Visibility(
+              visible: Global.myopia,
+              child: SizedBox(
                 width: 120.0,
-                height: 430 + (Global.fontSize * 9),
+                height: 150 + (Global.fontSize * 8),
                 child: Card(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Align(
                         alignment: Alignment.topLeft,
                         child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Container(
-                            margin: const EdgeInsets.all(5.0),
-                            padding: const EdgeInsets.all(5.0),
-                            width: Global.fontSize * 10,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).highlightColor,
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            child: Text(
-                              'Lenses Info',
-                              style: TextStyle(fontSize: Global.fontSize),
-                            ),
-                          ),
+                          padding: const EdgeInsets.all(10),
+                          child: Heading.title(context, 'Myopia/Hyperopia'),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Text(
-                          'Lenses Brand',
-                          style: TextStyle(fontSize: Global.fontSize),
-                        ),
-                      ),
-                      Container(
-                        width: 280,
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.all(5.0),
-                        padding: const EdgeInsets.all(5.0),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).highlightColor,
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        child: Text(
-                          Global.lensesInfo[0],
-                          style: TextStyle(fontSize: Global.fontSize),
-                        ),
-                      ),
-                      const SizedBox(height: 10.0),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Text(
-                          'Lenses Lifespan',
-                          style: TextStyle(fontSize: Global.fontSize),
-                        ),
-                      ),
-                      Container(
-                        width: 280,
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.all(5.0),
-                        padding: const EdgeInsets.all(5.0),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).highlightColor,
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        child: Text(
-                          Global.lensesInfo[1],
-                          style: TextStyle(fontSize: Global.fontSize),
-                        ),
-                      ),
-                      const SizedBox(height: 20.0),
-                      EyeCondition.infoCard(context),
+                      EyeCondition.myopiaCard(context),
                       const Spacer(),
                       Align(
                         alignment: Alignment.bottomRight,
@@ -293,7 +352,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (_) => const GeneralInfo()))
+                                          builder: (_) => const Myopia()))
                                   .then((_) {
                                 setState(() {});
                               });
@@ -312,241 +371,153 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              Visibility(
-                visible: Global.myopia,
-                child: const SizedBox(height: 15.0),
-              ),
-              Visibility(
-                visible: Global.myopia,
-                child: SizedBox(
-                  width: 120.0,
-                  height: 150 + (Global.fontSize * 8),
-                  child: Card(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: Container(
-                              margin: const EdgeInsets.all(5.0),
-                              padding: const EdgeInsets.all(5.0),
-                              width: Global.fontSize * 10,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).highlightColor,
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              child: Text(
-                                'Myopia/Hyperopia',
-                                style: TextStyle(fontSize: Global.fontSize),
-                              ),
-                            ),
-                          ),
+            ),
+            Visibility(
+              visible: Global.astigmatism,
+              child: const SizedBox(height: 15.0),
+            ),
+            Visibility(
+              visible: Global.astigmatism,
+              child: SizedBox(
+                width: 120.0,
+                height: 250 + (Global.fontSize * 7),
+                child: Card(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Heading.title(context, 'Astigmatism'),
                         ),
-                        EyeCondition.myopiaCard(context),
-                        const Spacer(),
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: FloatingActionButton.small(
-                              onPressed: () {
-                                Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) => const Myopia()))
-                                    .then((_) {
-                                  setState(() {});
-                                });
-                              },
-                              shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                              backgroundColor: Theme.of(context).highlightColor,
-                              elevation: 0,
-                              child: const Icon(Icons.edit),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Visibility(
-                visible: Global.astigmatism,
-                child: const SizedBox(height: 15.0),
-              ),
-              Visibility(
-                visible: Global.astigmatism,
-                child: SizedBox(
-                  width: 120.0,
-                  height: 250 + (Global.fontSize * 7),
-                  child: Card(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: Container(
-                              margin: const EdgeInsets.all(5.0),
-                              padding: const EdgeInsets.all(5.0),
-                              width: Global.fontSize * 10,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).highlightColor,
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              child: Text(
-                                'Astigmatism',
-                                style: TextStyle(fontSize: Global.fontSize),
-                              ),
-                            ),
-                          ),
-                        ),
-                        EyeCondition.astigmatismCard(context),
-                        const Spacer(),
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: FloatingActionButton.small(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) =>
-                                            const Astigmatism())).then((_) {
-                                  setState(() {});
-                                });
-                              },
-                              shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                              backgroundColor: Theme.of(context).highlightColor,
-                              elevation: 0,
-                              child: const Icon(Icons.edit),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Visibility(
-                visible: Global.presbyopia,
-                child: const SizedBox(height: 15.0),
-              ),
-              Visibility(
-                visible: Global.presbyopia,
-                child: SizedBox(
-                  width: 120.0,
-                  height: 150 + (Global.fontSize * 8),
-                  child: Card(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: Container(
-                              margin: const EdgeInsets.all(5.0),
-                              padding: const EdgeInsets.all(5.0),
-                              width: Global.fontSize * 10,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).highlightColor,
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              child: Text(
-                                'Presbyopia',
-                                style: TextStyle(fontSize: Global.fontSize),
-                              ),
-                            ),
-                          ),
-                        ),
-                        EyeCondition.presbyopiaCard(context),
-                        const Spacer(),
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: FloatingActionButton.small(
-                              onPressed: () {
-                                Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) => const Presbyopia()))
-                                    .then((_) {
-                                  setState(() {});
-                                });
-                              },
-                              shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                              backgroundColor: Theme.of(context).highlightColor,
-                              elevation: 0,
-                              child: const Icon(Icons.edit),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10.0),
-              ElevatedButton(
-                child: const Text('Reset all values'),
-                onPressed: () => showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: Text('Warning',
-                        style: TextStyle(fontSize: Global.fontSize + 10)),
-                    content: Text(
-                        'Would  you like to reset all your Contact Lenses values?',
-                        style: TextStyle(fontSize: Global.fontSize)),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, 'Cancel'),
-                        child: Text('Cancel',
-                            style: TextStyle(fontSize: Global.fontSize)),
                       ),
-                      TextButton(
-                        onPressed: () {
-                          reset();
-                          Navigator.pop(context, 'OK');
-                        },
-                        child: Text('OK',
-                            style: TextStyle(fontSize: Global.fontSize)),
+                      EyeCondition.astigmatismCard(context),
+                      const Spacer(),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: FloatingActionButton.small(
+                            onPressed: () {
+                              Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => const Astigmatism()))
+                                  .then((_) {
+                                setState(() {});
+                              });
+                            },
+                            shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            backgroundColor: Theme.of(context).highlightColor,
+                            elevation: 0,
+                            child: const Icon(Icons.edit),
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
-              const SizedBox(height: 75.0),
-            ],
-          ),
+            ),
+            Visibility(
+              visible: Global.presbyopia,
+              child: const SizedBox(height: 15.0),
+            ),
+            Visibility(
+              visible: Global.presbyopia,
+              child: SizedBox(
+                width: 120.0,
+                height: 150 + (Global.fontSize * 8),
+                child: Card(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Heading.title(context, 'Presbyopia'),
+                        ),
+                      ),
+                      EyeCondition.presbyopiaCard(context),
+                      const Spacer(),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: FloatingActionButton.small(
+                            onPressed: () {
+                              Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => const Presbyopia()))
+                                  .then((_) {
+                                setState(() {});
+                              });
+                            },
+                            shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            backgroundColor: Theme.of(context).highlightColor,
+                            elevation: 0,
+                            child: const Icon(Icons.edit),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10.0),
+            ElevatedButton(
+              child: const Text('Reset all values'),
+              onPressed: () => showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: Text('Warning',
+                      style: TextStyle(fontSize: Global.fontSize + 10)),
+                  content: Text(
+                      'Would  you like to reset all your Contact Lenses values?',
+                      style: TextStyle(fontSize: Global.fontSize)),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                      child: Text('Cancel',
+                          style: TextStyle(fontSize: Global.fontSize)),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        reset();
+                        Navigator.pop(context, 'OK');
+                      },
+                      child: Text('OK',
+                          style: TextStyle(fontSize: Global.fontSize)),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 75.0),
+          ],
         ),
-        Center(
+        SingleChildScrollView(
           child: Padding(
             padding:
-                const EdgeInsets.symmetric(vertical: 30.0, horizontal: 40.0),
+                const EdgeInsets.symmetric(vertical: 0.0, horizontal: 40.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 20.0),
+                Heading.title(context, 'General'),
+                const SizedBox(height: 20.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -579,6 +550,29 @@ class _MyHomePageState extends State<MyHomePage> {
                     });
                   },
                 ),
+                const SizedBox(height: 10.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Disable Tips',
+                      style: TextStyle(fontSize: Global.fontSize),
+                    ),
+                    Switch(
+                      // This bool value toggles the switch.
+                      value: Global.tips,
+                      onChanged: (bool value) {
+                        // This is called when the user toggles the switch.
+                        setState(() {
+                          setTip(value);
+                          Global.tips = value;
+                        });
+                      },
+                    )
+                  ],
+                ),
+                const SizedBox(height: 20.0),
+                Heading.title(context, 'Conditions'),
                 const SizedBox(height: 20.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

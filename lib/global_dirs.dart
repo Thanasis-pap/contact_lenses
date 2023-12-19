@@ -9,13 +9,15 @@ export 'package:contact_lenses/EyeConditions/infoedit.dart';
 export 'package:contact_lenses/Widgets/checklifespan.dart';
 export 'package:contact_lenses/Widgets/counter.dart';
 export 'package:contact_lenses/Widgets/timestamps.dart';
+export 'package:contact_lenses/Widgets/tips.dart';
+export 'package:contact_lenses/Widgets/title.dart';
 
 class Global {
   static double fontSize = 18;
   static bool myopia = true;
   static bool astigmatism = false;
   static bool presbyopia = false;
-  static bool click = false;
+  static bool tips = true;
   static int leftEye = 0;
   static int rightEye = 0;
   static List<String> timestamps = [];
