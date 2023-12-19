@@ -193,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 200,
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      if (Global.tips == true){
+                      if (Global.tips == false){
                       showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(

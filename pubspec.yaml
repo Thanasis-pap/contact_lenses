@@ -51,7 +51,6 @@ dev_dependencies:
   auto_size_text: ^3.0.0
   flutter_launcher_icons: ^0.13.1
   shared_preferences:
-  keep_screen_on: ^3.0.0
   change_app_package_name: ^1.1.0
   intl:
 

@@ -17,7 +17,7 @@ class Global {
   static bool myopia = true;
   static bool astigmatism = false;
   static bool presbyopia = false;
-  static bool tips = true;
+  static bool tips = false;
   static int leftEye = 0;
   static int rightEye = 0;
   static List<String> timestamps = [];
