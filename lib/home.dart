@@ -193,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 200,
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      if (Global.tips == false){
+                      if (Global.tips == true){
                       showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
@@ -556,7 +556,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Disable Tips',
+                      'Show Tips',
                       style: TextStyle(fontSize: Global.fontSize),
                     ),
                     Switch(
