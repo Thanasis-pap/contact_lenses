@@ -193,6 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 200,
                   child: ElevatedButton.icon(
                     onPressed: () {
+                      if (Global.tips == true){
                       showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
@@ -210,7 +211,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ],
                         ),
-                      );
+                      );}
                       Lifespan.alert(context);
                       Global.leftEye++;
                       Global.rightEye++;
