@@ -7,7 +7,9 @@ The Contact Lenses Assistant App is a comprehensive tool that helps you manage y
 | ![app_home_light](https://github.com/Thanasis-pap/contact_lenses/assets/23704220/945ba4cc-b209-4595-8c0d-45059e7f89b4) | ![app_param_light](https://github.com/Thanasis-pap/contact_lenses/assets/23704220/a27216d8-3431-48d8-b1b1-5b0bd5487985) | ![app_home_dark](https://github.com/Thanasis-pap/contact_lenses/assets/23704220/1504bb80-25b9-4d3a-b09f-824db0dd5fd9) | ![app_param_dark](https://github.com/Thanasis-pap/contact_lenses/assets/23704220/867a2710-3a6d-4355-a8fc-31adb93cfc95) |
 | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 
-### 
+### Requirements
+
+- Android 9.0 (Pie) or higher 
 
 ### Features
 
