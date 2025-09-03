@@ -65,18 +65,18 @@ class _GeneralInfo extends State<GeneralInfo> {
                     alignment: Alignment.center,
                     child: Text(
                       'Lenses Brand',
-                      style: TextStyle(fontSize: Global.fontSize + 2),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
                   ),
                   const SizedBox(height: 20.0),
                   Align(
                     alignment: Alignment.center,
                     child: SizedBox(
-                      width: 280,
-                      height: 40,
+                      width: 280.h,
+                      height: 40.h,
                       child: TextField(
                         maxLength: 22,
-                        style: TextStyle(fontSize: Global.fontSize),
+                        style: TextStyle(fontSize: 16.sp),
                         onChanged: (text) {
                           Global.lensesInfo[0] = text;
                           setStringList(Global.lensesInfo);
@@ -90,16 +90,16 @@ class _GeneralInfo extends State<GeneralInfo> {
                           focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
                                 color: Colors.transparent, width: 0),
-                            borderRadius: BorderRadius.circular(30.0),
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
                                 color: Colors.transparent, width: 0),
-                            borderRadius: BorderRadius.circular(30.0),
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
                           filled: true,
                           fillColor:
-                              Theme.of(context).highlightColor,
+                              Theme.of(context).primaryColorLight,
                         ),
                       ),
                     ),
@@ -109,23 +109,23 @@ class _GeneralInfo extends State<GeneralInfo> {
                     alignment: Alignment.center,
                     child: Text(
                       'Lenses Duration',
-                      style: TextStyle(fontSize: Global.fontSize + 2),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
                   ),
                   const SizedBox(height: 20.0),
                   Align(
                     alignment: Alignment.center,
                     child: SizedBox(
-                      width: 280,
-                      height: 40,
+                      width: 280.w,
+                      height: 40.h,
                       child: Container(
                         height: 36.0,
                         width: 280.0,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 5),
                         decoration: BoxDecoration(
-                            color: Theme.of(context).highlightColor,
-                            borderRadius: BorderRadius.circular(30)),
+                          color: Theme.of(context).primaryColorLight,
+                          borderRadius: BorderRadius.circular(10.0),),
                         child: DropdownButton(
                           isExpanded: true,
                           // Initial Value
@@ -155,7 +155,7 @@ class _GeneralInfo extends State<GeneralInfo> {
                     alignment: Alignment.center,
                     child: Text(
                       'Left Lens',
-                      style: TextStyle(fontSize: Global.fontSize + 2),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
                   ),
                   const SizedBox(height: 20.0),
@@ -164,11 +164,11 @@ class _GeneralInfo extends State<GeneralInfo> {
                     children: [
                       Text(
                         'Curvature (BC)',
-                        style: TextStyle(fontSize: Global.fontSize),
+                        style: TextStyle(fontSize: 16.sp),
                       ),
                       SizedBox(
-                        width: 100,
-                        height: 40,
+                        width: 120.w,
+                        height: 40.h,
                         child: TextField(
                           keyboardType: TextInputType.number,
                           maxLength: 6,
@@ -176,7 +176,7 @@ class _GeneralInfo extends State<GeneralInfo> {
                             FilteringTextInputFormatter.allow(
                                 RegExp(r'(^\d*\.?\d*)'))
                           ],
-                          style: TextStyle(fontSize: Global.fontSize),
+                          style: TextStyle(fontSize: 16.sp),
                           onChanged: (text) {
                             Global.lensesInfo[2] = text;
                             setStringList(Global.lensesInfo);
@@ -190,16 +190,16 @@ class _GeneralInfo extends State<GeneralInfo> {
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
                                   color: Colors.transparent, width: 0),
-                              borderRadius: BorderRadius.circular(30.0),
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
                                   color: Colors.transparent, width: 0),
-                              borderRadius: BorderRadius.circular(30.0),
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
                             filled: true,
                             fillColor:
-                                Theme.of(context).highlightColor,
+                                Theme.of(context).primaryColorLight,
                           ),
                         ),
                       ),
@@ -211,11 +211,11 @@ class _GeneralInfo extends State<GeneralInfo> {
                     children: [
                       Text(
                         'Average (DIA)',
-                        style: TextStyle(fontSize: Global.fontSize),
+                        style: TextStyle(fontSize: 16.sp),
                       ),
                       SizedBox(
-                        width: 100,
-                        height: 40,
+                        width: 120.w,
+                        height: 40.h,
                         child: TextField(
                           keyboardType: TextInputType.number,
                           maxLength: 6,
@@ -223,7 +223,7 @@ class _GeneralInfo extends State<GeneralInfo> {
                             FilteringTextInputFormatter.allow(
                                 RegExp(r'(^\d*\.?\d*)'))
                           ],
-                          style: TextStyle(fontSize: Global.fontSize),
+                          style: TextStyle(fontSize: 16.sp),
                           onChanged: (text) {
                             Global.lensesInfo[3] = text;
                             setStringList(Global.lensesInfo);
@@ -237,16 +237,16 @@ class _GeneralInfo extends State<GeneralInfo> {
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
                                   color: Colors.transparent, width: 0),
-                              borderRadius: BorderRadius.circular(30.0),
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
                                   color: Colors.transparent, width: 0),
-                              borderRadius: BorderRadius.circular(30.0),
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
                             filled: true,
                             fillColor:
-                                Theme.of(context).highlightColor,
+                                Theme.of(context).primaryColorLight,
                           ),
                         ),
                       ),
@@ -257,7 +257,7 @@ class _GeneralInfo extends State<GeneralInfo> {
                     alignment: Alignment.center,
                     child: Text(
                       'Right Lens',
-                      style: TextStyle(fontSize: Global.fontSize + 2),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
                   ),
                   const SizedBox(height: 20.0),
@@ -266,11 +266,11 @@ class _GeneralInfo extends State<GeneralInfo> {
                     children: [
                       Text(
                         'Curvature (BC)',
-                        style: TextStyle(fontSize: Global.fontSize),
+                        style: TextStyle(fontSize: 16.sp),
                       ),
                       SizedBox(
-                        width: 100,
-                        height: 40,
+                        width: 120.w,
+                        height: 40.h,
                         child: TextField(
                           keyboardType: TextInputType.number,
                           maxLength: 6,
@@ -278,7 +278,7 @@ class _GeneralInfo extends State<GeneralInfo> {
                             FilteringTextInputFormatter.allow(
                                 RegExp(r'(^\d*\.?\d*)'))
                           ],
-                          style: TextStyle(fontSize: Global.fontSize),
+                          style: TextStyle(fontSize: 16.sp),
                           onChanged: (text) {
                             Global.lensesInfo[4] = text;
                             setStringList(Global.lensesInfo);
@@ -292,16 +292,16 @@ class _GeneralInfo extends State<GeneralInfo> {
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
                                   color: Colors.transparent, width: 0),
-                              borderRadius: BorderRadius.circular(30.0),
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
                                   color: Colors.transparent, width: 0),
-                              borderRadius: BorderRadius.circular(30.0),
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
                             filled: true,
                             fillColor:
-                                Theme.of(context).highlightColor,
+                                Theme.of(context).primaryColorLight,
                           ),
                         ),
                       ),
@@ -313,11 +313,11 @@ class _GeneralInfo extends State<GeneralInfo> {
                     children: [
                       Text(
                         'Average (DIA)',
-                        style: TextStyle(fontSize: Global.fontSize),
+                        style: TextStyle(fontSize: 16.sp),
                       ),
                       SizedBox(
-                        width: 100,
-                        height: 40,
+                        width: 120.w,
+                        height: 40.h,
                         child: TextField(
                           keyboardType: TextInputType.number,
                           maxLength: 6,
@@ -325,7 +325,7 @@ class _GeneralInfo extends State<GeneralInfo> {
                             FilteringTextInputFormatter.allow(
                                 RegExp(r'(^\d*\.?\d*)'))
                           ],
-                          style: TextStyle(fontSize: Global.fontSize),
+                          style: TextStyle(fontSize: 16.sp),
                           onChanged: (text) {
                             Global.lensesInfo[5] = text;
                             setStringList(Global.lensesInfo);
@@ -339,16 +339,16 @@ class _GeneralInfo extends State<GeneralInfo> {
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
                                   color: Colors.transparent, width: 0),
-                              borderRadius: BorderRadius.circular(30.0),
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
                                   color: Colors.transparent, width: 0),
-                              borderRadius: BorderRadius.circular(30.0),
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
                             filled: true,
                             fillColor:
-                                Theme.of(context).highlightColor,
+                                Theme.of(context).primaryColorLight,
                           ),
                         ),
                       ),
